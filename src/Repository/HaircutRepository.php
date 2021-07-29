@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository; 
 
 use App\Entity\Haircut;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -8,10 +8,10 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
- * @method Service|null find($id, $lockMode = null, $lockVersion = null)
- * @method Service|null findOneBy(array $criteria, array $orderBy = null)
- * @method Service[]    findAll()
- * @method Service[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Haircut|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Haircut|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Haircut[]    findAll()
+ * @method Haircut[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class HaircutRepository extends ServiceEntityRepository
 {
@@ -21,7 +21,7 @@ class HaircutRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Haircut[] Returns an array of Service objects
+    //  * @return Haircut[] Returns an array of Haircut objects
     //  */
     
     public function haircutNumber($firstResult, $maxResult)
@@ -68,7 +68,7 @@ class HaircutRepository extends ServiceEntityRepository
         $orm = $this->createQueryBuilder('abc')
             ->orderBy('abc.id', 'ASC');
    
-        $query = $orm->getQuery();
+        $query = $orm->getQuery(); 
 
         $premierResultat = ($page - 1) * $nbMaxParPage;
         $query->setFirstResult($premierResultat)->setMaxResults($nbMaxParPage);

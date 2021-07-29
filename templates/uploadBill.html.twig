@@ -1,0 +1,222 @@
+<!-- BILL START --> 
+<!DOCTYPE html>
+<html>
+    <head> 
+        <meta charset="UTF-8">
+        <title> Facture </title>
+      
+        <link rel="stylesheet" href="facture.css">
+        
+        <style>
+            html, body{
+    			height: 100%;
+			}
+
+			body{
+    			position: relative;
+    			color:#222;
+    			font-family:"Helvetica Neue", Arial, Verdana, sans-serif;
+    			line-height: 1.4;
+			}
+
+			h1{
+    			font-size: 3em;
+    			font-weight: bold;
+    			margin: 0 0 70px 0;
+			}
+
+			.address_label, .infos_label{
+    			color:#555;
+    			float:left;
+    			width:105px;
+    			text-align: right;
+			}
+
+			.address_content, .infos_content{
+    			margin-left: 115px;
+    			border-left: 1px solid #CCCCCC;
+    			padding-left: 10px;
+			}
+
+			.address-to{
+    			position: absolute;
+    			top: 10px;
+    			right: 0;
+    			width: 50%;
+			}
+
+			.address-from{
+    			float: left;
+    			width: 50%;
+			}
+
+			.infos{
+    			float: right;
+    			width: 50%;
+			}
+
+			.infos_content, .infos_label{
+    			padding-top: 4px;
+    			padding-bottom: 4px;
+			}
+
+			.cb{
+    			clear: both;
+			}
+
+			.items{
+    			margin: 50px 0;
+    			width: 100%;
+    			border-spacing: 0;
+    			border-collapse: collapse;
+			}
+
+			.items tbody tr:nth-child(old){
+    			background: #f6f6f6;
+			}
+
+			.items th{
+    			text-align: right;
+    			border-top: none;
+    			text-align: left;
+    			padding: 10px 3px;
+    			font-size:0.9em;
+			}
+
+			.items td{
+    			padding:10px;
+    			border: 1px solid #CCCCCC;
+    			border-left: none;
+    			border-right: none;
+			}
+
+			.total{
+    			background: transparent!important;
+			}
+
+			.total td{
+    			border: none!important;
+    			padding: 5px 10px;
+			}
+
+			.total-first td{
+    			padding-top: 28px;
+			}
+
+			.total-big td{
+    			padding-top: 10px;
+    			font-size: 1.3em;
+    			font-weight: bold;
+			}
+
+			.total_label{
+    			text-align: right;
+			}
+
+			footer{
+    			border-top: 1px solid #CCCCCC;
+    			position: absolute;
+    			bottom: 0;
+    			left: 0;
+    			right: 0;
+    			padding: 1em 5px 0 5px;
+			}
+        </style>
+    </head>
+    <body>
+
+        <div class="address address-to"> 
+            <div class="address_label">
+                Pour 
+            </div>
+            <div class="address_content">
+                <strong> {{ app.user.name }} </strong>
+                <br>
+                {{ app.user.number }} 
+                <br>
+                {{ app.user.email }}
+            </div>
+        </div>
+
+        <h1>Facture</h1>
+
+        <div class="address address-from"> 
+            <div class="address_label">
+                De 
+            </div>
+            <div class="address_content">
+                <strong> Demo Hair Coiffure </strong>
+                <br>
+                8 Rue Raymond Bellague, 
+                <br>
+                77520 Donnemarie-Dontilly. 
+                <br>
+                FRANCE 
+				<br>
+				Tel: 06 58 54 29 89
+            </div>
+        </div>
+
+        <div class="infos">
+            <div class="infos_label">
+                Facture n°
+            </div>
+            <div class="infos_content">
+                <strong>2</strong>
+            </div>
+            <div class="infos_label">
+                Emise le
+            </div>
+            <div class="infos_content">
+                {{dateOfDay}}
+            </div>
+        </div>
+
+        <div class="cb">
+            <table class="items">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th style="78px"> Prix HT </th>
+                        <th style="108px">Prix TTC </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>1 {{eventNewRegistrer.haircut.name}}</td>
+                        <td> {{eventNewRegistrer.haircut.price}}€</td>
+                        <td>{{eventNewRegistrer.haircut.price}}€</td>
+                    </tr>
+
+                    <tr class="total total-first">
+                        <td colspan="2" class="total_label">Sous-total</td>
+                        <td><strong>{{eventNewRegistrer.haircut.price}}€</strong></td>
+                        <
+                    </tr>
+
+                    <tr class="total">
+                        <td colspan="2" class="total_label">Taxe (20.00%)</td>
+                        <td><trong>{{eventNewRegistrer.haircut.price}}€</trong></td>
+                        <
+                    </tr>
+
+                    <tr class="total total-big">
+                        <td colspan="2" class="total_label">Total</td>
+                        <td><strong>{{eventNewRegistrer.haircut.price}}€</strong></td>
+                        <
+                    </tr>
+                </tbody>
+                
+            </table>
+
+            <footer>
+                <p>EURL au capital de 100 000 euros.</p> 
+                <br>
+                <p>Centre de coiffure agréé, acceptant à ce titre les règlements par chèque, carte bleue et en espèce.</p>
+            </footer>
+
+        </div>
+    </body>
+</html>
+<!-- BILL END -->

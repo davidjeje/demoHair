@@ -41,13 +41,13 @@ class Paginator
     private $paramsRoute = [];
 
     /**
-     * @ORM\OneToMany(targetEntity=Service::class, mappedBy="paginator", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Haircut::class, mappedBy="paginator", orphanRemoval=true)
      */
-    private $services;
+    private $haircuts;
 
     public function __construct()
     {
-        $this->services = new ArrayCollection();
+        $this->haircuts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,29 +102,29 @@ class Paginator
     }
 
     /**
-     * @return Collection|Service[]
+     * @return Collection|Haircut[]
      */
-    public function getServices(): Collection
+    public function gethaircuts(): Collection
     {
-        return $this->services;
+        return $this->haircuts;
     }
 
-    public function addService(Service $service): self
+    public function addHaircut(Haircut $haircut): self
     {
-        if (!$this->services->contains($service)) {
-            $this->services[] = $service;
-            $service->setPaginator($this);
+        if (!$this->haircut->contains($haircut)) {
+            $this->haircut[] = $haircut;
+            $haircut->setPaginator($this);
         }
 
         return $this;
     }
 
-    public function removeService(Service $service): self
+    public function removeHaircut(Haircut $haircut): self
     {
-        if ($this->services->removeElement($service)) {
+        if ($this->haircuts->removeElement($haircut)) {
             // set the owning side to null (unless already changed)
-            if ($service->getPaginator() === $this) {
-                $service->setPaginator(null);
+            if ($haircut->getPaginator() === $this) {
+                $haircut->setPaginator(null);
             }
         }
 

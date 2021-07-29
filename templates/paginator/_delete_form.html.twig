@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('paginator_delete', {'id': paginator.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ paginator.id) }}">
+    <button class="btn">Delete</button>
+</form>

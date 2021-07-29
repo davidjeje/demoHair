@@ -1,16 +1,74 @@
 security:
-    # https://symfony.com/doc/current/security/experimental_authenticators.html
-    enable_authenticator_manager: true
+    encoders:
+        App\Entity\User:
+            algorithm: auto
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        users_in_memory: { memory: null }
+        #users_in_memory: { memory: null }
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+
+
     firewalls:
+
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+
+            #anonymous: true
             lazy: true
-            provider: users_in_memory
+            provider: app_user_provider
+             # allow authentication using a form or HTTP basic
+            form_login: ~
+                #failure_path: app_login
+            http_basic: ~
+
+            custom_authenticators:
+                #- App\Security\LoginFormAuthenticator
+                - App\Security\ApiKeyAuthenticator
+            # configure the form authentication as the entry point for unauthenticated users
+            entry_point: form_login 
+            login_link:
+                check_route: login_check
+                signature_properties: ['id', 'email']
+                # lifetime in seconds
+                lifetime: 300
+                #check_post_only: true
+                # only allow the link to be used 2 times
+                max_uses: 2
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+            # by default, the feature allows 5 login attempts per minute
+            #login_throttling: null
+
+            # configure the maximum login attempts (per minute)
+            #login_throttling:
+                #max_attempts: 3
+
+            # use a custom rate limiter via its service ID
+            #login_throttling:
+                #limiter: app.my_login_rate_limiter
+            
+            #form_login:
+                #login_path: login
+                #check_path: login
+            #logout:
+                #path:  /logout
+                #target: /
+            #pattern: ^/
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+            
+                # where to redirect after logout
+                # target: app_any_route
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -18,8 +76,25 @@ security:
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # allow unauthenticated users to access the login form
+        - { path: ^/, roles: PUBLIC_ACCESS }
+        - { path: ^/about/of/company, roles: PUBLIC_ACCESS }
+        # - { path: ^/login1, roles: PUBLIC_ACCESS }
+        - { path: ^/validate/account/, roles: PUBLIC_ACCESS }
+        - { path: ^/services, roles: PUBLIC_ACCESS }
+        - { path: ^/details/haircut, roles: PUBLIC_ACCESS }
+        - { path: ^/connectionLink, roles: PUBLIC_ACCESS }
+        - { path: ^/signUp, roles: PUBLIC_ACCESS }
+        - { path: ^/signIn, roles: PUBLIC_ACCESS }
+        - { path: ^/user, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }
+
+    
+    enable_authenticator_manager: true 

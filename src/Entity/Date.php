@@ -27,6 +27,12 @@ class Date
      */
     private $end;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="date")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $member;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -55,4 +61,16 @@ class Date
 
         return $this;
     }
+
+    public function getMember(): ?User
+    {
+        return $this->member;
+    }
+
+    public function setMember(?User $member): self
+    {
+        $this->member = $member;
+
+        return $this;
+    } 
 }

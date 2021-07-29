@@ -28,31 +28,37 @@ class Haircut
      * @ORM\Column(type="text")
      */
     private $description;
-
+ 
     /**
      * @ORM\Column(type="integer")
      */
     private $price;
 
-    /**
+    /** 
      * @ORM\Column(type="string", length=255)
      */
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Paginator::class, inversedBy="services")
+     * @ORM\ManyToOne(targetEntity=Paginator::class, inversedBy="haircuts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $paginator;
 
     /**
-     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="service")
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="haircut")
      */
     private $events;
+
+    /**
+     * @ORM\OneToMany(targetEntity=EventNotValidated::class, mappedBy="haircut", orphanRemoval=true)
+     */
+    private $eventNotValidated;
 
     public function __construct()
     {
         $this->events = new ArrayCollection();
+        $this->eventNotValidated = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -132,7 +138,7 @@ class Haircut
     {
         if (!$this->events->contains($event)) {
             $this->events[] = $event;
-            $event->setService($this);
+            $event->setHaircut($this);
         }
 
         return $this;
@@ -142,8 +148,38 @@ class Haircut
     {
         if ($this->events->removeElement($event)) {
             // set the owning side to null (unless already changed)
-            if ($event->getService() === $this) {
-                $event->setService(null);
+            if ($event->getHaircut() === $this) {
+                $event->setHaircut(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EventNotValidated[]
+     */
+    public function getEventNotValidated(): Collection
+    {
+        return $this->eventNotValidated;
+    }
+
+    public function addEventNotValidated(EventNotValidated $eventNotValidated): self
+    {
+        if (!$this->eventNotValidated->contains($eventNotValidated)) {
+            $this->eventNotValidated[] = $eventNotValidated;
+            $eventNotValidated->setHair($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventNotValidated(EventNotValidated $eventNotValidated): self
+    {
+        if ($this->eventNotValidated->removeElement($eventNotValidated)) {
+            // set the owning side to null (unless already changed)
+            if ($eventNotValidated->getHair() === $this) {
+                $eventNotValidated->setHair(null);
             }
         }
 

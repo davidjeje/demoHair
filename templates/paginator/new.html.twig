@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Paginator{% endblock %}
+
+{% block body %}
+    <h1>Create new Paginator</h1>
+
+    {{ include('paginator/_form.html.twig') }}
+
+    <a href="{{ path('paginator_index') }}">back to list</a>
+{% endblock %}

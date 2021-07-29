@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paginator index{% endblock %}
+
+{% block body %}
+    <h1>Paginator index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Page</th>
+<<<<<<< HEAD
+                <th>NbPage</th>
+                <th>NameRoute</th>
+=======
+                <th>NbPages</th>
+                <th>NomRoute</th>
+>>>>>>> paginator
+                <th>ParamsRoute</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for paginator in paginators %}
+            <tr>
+                <td>{{ paginator.id }}</td>
+                <td>{{ paginator.page }}</td>
+<<<<<<< HEAD
+                <td>{{ paginator.nbPage }}</td>
+                <td>{{ paginator.nameRoute }}</td>
+=======
+                <td>{{ paginator.nbPages }}</td>
+                <td>{{ paginator.nomRoute }}</td>
+>>>>>>> paginator
+                <td>{{ paginator.paramsRoute ? paginator.paramsRoute|join(', ') : '' }}</td>
+                <td>
+                    <a href="{{ path('paginator_show', {'id': paginator.id}) }}">show</a>
+                    <a href="{{ path('paginator_edit', {'id': paginator.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('paginator_new') }}">Create new</a>
+{% endblock %}

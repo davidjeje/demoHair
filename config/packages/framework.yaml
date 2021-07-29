@@ -15,7 +15,11 @@ framework:
     #esi: true
     #fragments: true
     php_errors:
-        log: true
+        log: true 
+
+    #form:
+        #legacy_error_messages: false
+    #validation: { enabled: true }
 
 when@test:
     framework:

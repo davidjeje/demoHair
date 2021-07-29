@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\EventRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+ 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
  */
@@ -20,8 +20,8 @@ class Event
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
-
+    private $title; 
+ 
     /**
      * @ORM\Column(type="datetime")
      */
@@ -33,9 +33,9 @@ class Event
     private $end;
  
     /**
-     * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="events")
+     * @ORM\ManyToOne(targetEntity=Haircut::class, inversedBy="events")
      */
-    private $service;
+    private $haircut;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="events")
@@ -83,14 +83,14 @@ class Event
         return $this;
     }
 
-    public function getService(): ?Service
+    public function getHaircut(): ?Haircut
     {
-        return $this->service;
+        return $this->haircut; 
     }
 
-    public function setService(?Service $service): self
+    public function setHaircut(?Haircut $haircut): self
     {
-        $this->service = $service;
+        $this->haircut = $haircut;
 
         return $this;
     }
